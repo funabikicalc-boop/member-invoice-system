@@ -828,6 +828,202 @@
       color: var(--text-primary);
     }
 
+    .item-right {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 8px;
+    }
+
+    .objection-btn {
+      padding: 6px 12px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      background: white;
+      color: var(--text-muted);
+      font-size: 12px;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .objection-btn:hover {
+      border-color: var(--danger);
+      color: var(--danger);
+    }
+
+    .objection-btn.confirm {
+      border-color: var(--success);
+      color: var(--success);
+      background: rgba(16, 185, 129, 0.05);
+    }
+
+    .objection-btn.confirm:hover {
+      background: var(--success);
+      color: white;
+    }
+
+    .item-row.waiting {
+      background: linear-gradient(90deg, rgba(99, 102, 241, 0.05) 0%, transparent 100%);
+    }
+
+    .item-row.has-reply {
+      background: linear-gradient(90deg, rgba(16, 185, 129, 0.05) 0%, transparent 100%);
+    }
+
+    .item-badge.waiting {
+      background: rgba(99, 102, 241, 0.1);
+      color: #6366F1;
+    }
+
+    .item-badge.replied {
+      background: rgba(16, 185, 129, 0.1);
+      color: var(--success);
+    }
+
+    .status-badge.waiting {
+      background: rgba(99, 102, 241, 0.1);
+      color: #6366F1;
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .objection-message {
+      margin-top: 12px;
+      padding: 12px;
+      border-radius: var(--radius-sm);
+      font-size: 13px;
+    }
+
+    .objection-message.sent {
+      background: rgba(99, 102, 241, 0.08);
+      border-left: 3px solid #6366F1;
+    }
+
+    .objection-message.reply {
+      background: rgba(16, 185, 129, 0.08);
+      border-left: 3px solid var(--success);
+      margin-top: 8px;
+    }
+
+    .objection-message-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    .objection-message-text {
+      color: var(--text-primary);
+      line-height: 1.5;
+    }
+
+    /* ============ OBJECTION MODAL ============ */
+    .objection-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.5);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      padding: 20px;
+    }
+
+    .objection-modal.active {
+      display: flex;
+    }
+
+    .objection-modal-content {
+      background: white;
+      border-radius: var(--radius-lg);
+      width: 100%;
+      max-width: 480px;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .objection-modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 24px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .objection-modal-header h3 {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .objection-modal-close {
+      width: 32px;
+      height: 32px;
+      border: none;
+      background: transparent;
+      font-size: 24px;
+      color: var(--text-muted);
+      cursor: pointer;
+      border-radius: 50%;
+      transition: all 0.2s ease;
+    }
+
+    .objection-modal-close:hover {
+      background: var(--bg-gradient-start);
+      color: var(--text-primary);
+    }
+
+    .objection-modal-body {
+      padding: 24px;
+    }
+
+    .objection-modal-item {
+      font-size: 14px;
+      color: var(--text-secondary);
+      margin-bottom: 8px;
+    }
+
+    .objection-modal-item strong {
+      color: var(--text-primary);
+    }
+
+    .objection-textarea {
+      width: 100%;
+      min-height: 120px;
+      padding: 14px 16px;
+      border: 2px solid var(--border);
+      border-radius: var(--radius-md);
+      font-size: 14px;
+      font-family: inherit;
+      resize: vertical;
+      margin-top: 8px;
+    }
+
+    .objection-textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+
+    .objection-modal-footer {
+      display: flex;
+      gap: 12px;
+      justify-content: flex-end;
+      padding: 16px 24px;
+      border-top: 1px solid var(--border);
+      background: #fafafa;
+      border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+    }
+
+    .submit-note {
+      text-align: center;
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 16px;
+    }
+
     .item-status {
       display: inline-flex;
       align-items: center;
@@ -1651,7 +1847,10 @@
                   <span style="color: var(--warning);">※前回未請求</span>
                 </div>
               </div>
-              <div class="item-price">¥24,000</div>
+              <div class="item-right">
+                <div class="item-price">¥24,000</div>
+                <button class="objection-btn" onclick="showObjectionForm(this)">異議あり</button>
+              </div>
             </div>
 
             <div class="item-row checked">
@@ -1667,39 +1866,68 @@
                   <span>注文番号: ORD-20250205-001</span>
                 </div>
               </div>
-              <div class="item-price">¥42,500</div>
+              <div class="item-right">
+                <div class="item-price">¥42,500</div>
+                <button class="objection-btn" onclick="showObjectionForm(this)">異議あり</button>
+              </div>
             </div>
 
-            <div class="item-row checked">
-              <div class="item-checkbox checked" onclick="toggleCheck(this)">
+            <!-- 返答待ちの商品例 -->
+            <div class="item-row waiting">
+              <div class="item-checkbox disabled">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
                 </svg>
               </div>
               <div class="item-info">
-                <div class="item-name">Sony WH-1000XM5 ヘッドホン</div>
+                <div class="item-name">
+                  Sony WH-1000XM5 ヘッドホン
+                  <span class="item-badge waiting">返答待ち</span>
+                </div>
                 <div class="item-meta">
                   <span>到着日: 2025/02/03</span>
                   <span>注文番号: ORD-20250203-002</span>
                 </div>
+                <div class="objection-message sent">
+                  <div class="objection-message-label">あなたの問い合わせ:</div>
+                  <div class="objection-message-text">金額が注文時と異なっているようです。確認をお願いします。</div>
+                </div>
               </div>
-              <div class="item-price">¥28,900</div>
+              <div class="item-right">
+                <div class="item-price">¥28,900</div>
+                <span class="status-badge waiting">返答待ち</span>
+              </div>
             </div>
 
-            <div class="item-row checked">
-              <div class="item-checkbox checked" onclick="toggleCheck(this)">
+            <!-- 返答済みの商品例 -->
+            <div class="item-row has-reply">
+              <div class="item-checkbox" onclick="toggleCheck(this)">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
                 </svg>
               </div>
               <div class="item-info">
-                <div class="item-name">Dyson V15 Detect コードレス掃除機</div>
+                <div class="item-name">
+                  Dyson V15 Detect コードレス掃除機
+                  <span class="item-badge replied">返答あり</span>
+                </div>
                 <div class="item-meta">
                   <span>到着日: 2025/02/02</span>
                   <span>注文番号: ORD-20250202-003</span>
                 </div>
+                <div class="objection-message sent">
+                  <div class="objection-message-label">あなたの問い合わせ:</div>
+                  <div class="objection-message-text">商品が1点足りないようです。</div>
+                </div>
+                <div class="objection-message reply">
+                  <div class="objection-message-label">管理者からの返答:</div>
+                  <div class="objection-message-text">確認いたしました。1点分を追加し、金額を修正いたしました。ご確認ください。</div>
+                </div>
               </div>
-              <div class="item-price">¥32,000</div>
+              <div class="item-right">
+                <div class="item-price" style="color: var(--success);">¥34,500<span style="font-size: 12px; color: var(--text-muted); margin-left: 4px;">（修正済）</span></div>
+                <button class="objection-btn confirm" onclick="confirmAndCheck(this)">確認してチェック</button>
+              </div>
             </div>
 
             <div class="item-row checked">
@@ -1715,7 +1943,30 @@
                   <span>注文番号: ORD-20250201-001</span>
                 </div>
               </div>
-              <div class="item-price">¥31,000</div>
+              <div class="item-right">
+                <div class="item-price">¥31,000</div>
+                <button class="objection-btn" onclick="showObjectionForm(this)">異議あり</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- 異議入力モーダル -->
+          <div class="objection-modal" id="objection-modal">
+            <div class="objection-modal-content">
+              <div class="objection-modal-header">
+                <h3>異議を申し立てる</h3>
+                <button class="objection-modal-close" onclick="hideObjectionForm()">×</button>
+              </div>
+              <div class="objection-modal-body">
+                <p class="objection-modal-item">対象商品: <strong>Apple iPhone 15 Pro 256GB</strong></p>
+                <p class="objection-modal-item">現在の金額: <strong>¥42,500</strong></p>
+                <label class="form-label">異議の内容</label>
+                <textarea class="objection-textarea" placeholder="金額や商品について気になる点をご記入ください..."></textarea>
+              </div>
+              <div class="objection-modal-footer">
+                <button class="btn btn-outline" onclick="hideObjectionForm()">キャンセル</button>
+                <button class="btn btn-accent" onclick="submitObjection()">送信する</button>
+              </div>
             </div>
           </div>
 
@@ -1723,24 +1974,26 @@
             <div class="summary-info">
               <div class="summary-item">
                 <div class="summary-label">選択中</div>
-                <div class="summary-value">5件</div>
+                <div class="summary-value">4件</div>
               </div>
               <div class="summary-item">
                 <div class="summary-label">合計金額</div>
-                <div class="summary-value">¥158,400</div>
+                <div class="summary-value">¥131,500</div>
               </div>
               <div class="summary-item">
                 <div class="summary-label">入金予定日</div>
                 <div class="summary-value" style="font-size: 18px;">2025/02/25</div>
               </div>
             </div>
-            <button class="btn btn-accent" onclick="showScreen('complete-screen')">
+            <button class="btn btn-accent" onclick="showScreen('complete-screen')" id="submit-btn">
               請求書を発行・送信
               <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
               </svg>
             </button>
           </div>
+
+          <p class="submit-note">※ 返答待ちの商品がある場合、請求書は発行できません</p>
         </div>
 
         <!-- 金額未確定の場合 -->
@@ -1857,6 +2110,32 @@
         element.classList.toggle('checked');
         element.closest('.item-row').classList.toggle('checked');
       }
+    }
+
+    function showObjectionForm(btn) {
+      document.getElementById('objection-modal').classList.add('active');
+    }
+
+    function hideObjectionForm() {
+      document.getElementById('objection-modal').classList.remove('active');
+    }
+
+    function submitObjection() {
+      hideObjectionForm();
+      alert('異議を送信しました。管理者からの返答をお待ちください。');
+    }
+
+    function confirmAndCheck(btn) {
+      const row = btn.closest('.item-row');
+      row.classList.remove('has-reply');
+      row.classList.add('checked');
+      const checkbox = row.querySelector('.item-checkbox');
+      checkbox.classList.add('checked');
+      btn.style.display = 'none';
+      
+      // バッジを削除
+      const badge = row.querySelector('.item-badge.replied');
+      if (badge) badge.remove();
     }
   </script>
 </body>
